@@ -37,3 +37,65 @@ const usuarios: UsuarioBase[] = [new Admin(), new Invitado()];
 usuarios.forEach((usuario) => {
   console.log(usuario.obtenerRol());
 });
+
+interface Printer {
+  print(): void;
+}
+interface Scanner {
+  scan(): void;
+}
+interface Fax {
+  fax(): void;
+}
+
+class MultiFunctionPrinter implements Printer, Scanner, Fax {
+  print(): void {
+    console.log("Printing...");
+  }
+  scan(): void {
+    console.log("Scanning...");
+  }
+  fax(): void {
+    console.log("Faxing...");
+  }
+}
+
+class SimplePrinter implements Printer {
+  print(): void {
+    console.log("Printing...");
+  }
+}
+
+class MySQLDatabase {
+  connect(): void {
+    console.log("Connecting to MySQL database...");
+  }
+}
+
+class UserService {
+  private database = new MySQLDatabase();
+}
+interface Database {
+  connect(): void;
+}
+
+class MysqlDatabaseOK implements Database {
+  connect(): void {
+    console.log("Connecting to MySQL database...");
+  }
+}
+
+class PostgresDatabaseOK implements Database {
+  connect(): void {
+    console.log("Connecting to PostgreSQL database...");
+  }
+}
+
+class UserServiceOk {
+  constructor(private database: Database) {}
+}
+
+const db = new MysqlDatabaseOK();
+const db2 = new PostgresDatabaseOK();
+const userService = new UserServiceOk(db);
+const userService2 = new UserServiceOk(db2);
